@@ -1,12 +1,14 @@
 package org.example.controller;
 
-import com.example.hwswaggeruiind8.enitity.Faculty;
-import com.example.hwswaggeruiind8.enitity.Student;
-import com.example.hwswaggeruiind8.service.FacultyService;
+
+import org.example.entity.Faculty;
+import org.example.entity.Student;
+import org.example.service.FacultyService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Set;
+
 
 @RestController
 @RequestMapping("/faculty")

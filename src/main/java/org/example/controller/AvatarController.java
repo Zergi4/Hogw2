@@ -1,13 +1,14 @@
 package org.example.controller;
 
 
-import com.example.hwswaggeruiind8.service.AvatarService;
+
+import jakarta.servlet.http.HttpServletResponse;
+import org.example.service.AvatarService;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 

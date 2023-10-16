@@ -1,11 +1,13 @@
 package org.example.entity;
 
 
-import javax.persistence.*;
+
+import jakarta.persistence.*;
+
 import java.util.Arrays;
 import java.util.Objects;
 
-import static javax.persistence.GenerationType.IDENTITY;
+import static jakarta.persistence.GenerationType.IDENTITY;
 
 
 @Entity
