@@ -1,6 +1,7 @@
 package org.example.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.Objects;
@@ -14,6 +15,8 @@ public class Student {
     private int age;
     @ManyToOne
     @JoinColumn(name = "faculty_id")
+    @JsonIgnore
+
     private Faculty faculty;
 
     public Student(String name, int age) {

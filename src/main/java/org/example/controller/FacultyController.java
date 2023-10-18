@@ -26,7 +26,7 @@ public class FacultyController {
     public ResponseEntity<Faculty> getFaculty(@PathVariable Long id) {
         Faculty faculty = facultyService.findFaculty(id);
         if (faculty == null) {
-            logger.error("There is not faculty with id = " + id);
+
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(faculty);

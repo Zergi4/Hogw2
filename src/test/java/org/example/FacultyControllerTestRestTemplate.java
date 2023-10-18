@@ -5,7 +5,6 @@ import org.example.controller.FacultyController;
 import org.example.entity.Faculty;
 
 import org.assertj.core.api.Assertions;
-import org.example.entity.Student;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -48,10 +47,10 @@ class FacultyControllerTestRestTemplate {
 
         //Начало теста
         Faculty postedFaculty = this.restTemplate.postForObject("http://localhost:" + port + "/faculty", facultyForDelete, Faculty.class);
-        Long tempId = postedFaculty.getId();
-        this.restTemplate.delete("http://localhost:" + port + "/faculty" + "?id=" + tempId);
+
+        this.restTemplate.delete("http://localhost:" + port + "/faculty/" + postedFaculty.getId());
         //проверяем, что такого факультета после удаления нет в базе
-        Optional<Faculty> facultyOpt = this.restTemplate.getForObject("http://localhost:" + port + "/faculty" + "?id=" + tempId, Optional.class);
+        Optional<Faculty> facultyOpt = this.restTemplate.getForObject("http://localhost:" + port + "/faculty/" + postedFaculty.getId(), Optional.class);
         assertTrue(facultyOpt.isEmpty());
     }
 
