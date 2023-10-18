@@ -3,61 +3,63 @@ package org.example.service;
 import org.example.entity.Faculty;
 import org.example.entity.Student;
 import org.example.repository.FacultyRepository;
+import org.example.repository.StudentRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.Collection;
+import java.util.Comparator;
 
 @Service
 public class FacultyService {
-
     private final FacultyRepository facultyRepository;
-    private final StudentService studentService;
+    private final StudentRepository studentRepository;
+    Logger logger = LoggerFactory.getLogger(FacultyService.class);
 
-    public FacultyService(FacultyRepository facultyRepository, StudentService studentService) {
+    public FacultyService(FacultyRepository facultyRepository, StudentRepository studentRepository) {
         this.facultyRepository = facultyRepository;
-        this.studentService = studentService;
+        this.studentRepository = studentRepository;
     }
 
-    public Faculty add(String name, String color) {
-        Faculty newFaculty = new Faculty(name, color);
-        newFaculty = facultyRepository.save(newFaculty);
-        return newFaculty;
+    public Faculty createFaculty(Faculty faculty) {
+        logger.info("Was invoked method for create faculty");
+        return facultyRepository.save(faculty);
     }
 
-    public Faculty get(long id) {
+    public Faculty findFaculty(long id) {
+        logger.info("Was invoked method to find faculty");
         return facultyRepository.findById(id).get();
     }
 
-    public Faculty update(long id, String name, String color) {
-        Faculty facultyForUpdate = facultyRepository.findById(id).get();
-        facultyForUpdate.setName(name);
-        facultyForUpdate.setColor(color);
-        return facultyRepository.save(facultyForUpdate);
+    public Faculty editFaculty(Faculty faculty) {
+        logger.info("Was invoked method for edit faculty");
+        return facultyRepository.save(faculty);
     }
 
-    public Faculty delete(long id) {
-        Faculty facultyForDelete = facultyRepository.findById(id).get();
+    public void deleteFaculty(long id) {
+        logger.info("Was invoked method for delete faculty");
         facultyRepository.deleteById(id);
-        return facultyForDelete;
     }
 
-    public List<Faculty> getByColor(String color) {
+    public Collection<Faculty> getFacultiesByColor(String color) {
+        logger.info("Was invoked method to get faculty by color: {}", color);
+        return facultyRepository.findByColorIgnoreCase(color);
+    }
+
+    public Collection<Faculty> getFacultiesByColorOrName(String colorOrName) {
+        logger.info("Was invoked method to get faculty by color or name: {}", colorOrName);
+        return facultyRepository.findAllByColorContainingIgnoreCaseOrNameContainingIgnoreCase(colorOrName, colorOrName);
+    }
+    public Collection<Student> getFacultyStudents(long id){
+        logger.info("Was invoked method to get students by faculty");
+        return studentRepository.findAllByFaculty_id(id);
+    }
+
+    public String getTheLongestName() {
         return facultyRepository.findAll().stream()
-                .filter(faculty -> faculty.getColor().equals(color))
-                .collect(Collectors.toList());
-    }
-
-    public Set<Faculty> getByColorOrNameIgnoreCase(String param) {
-        Set<Faculty> result = new HashSet<>();
-        result.addAll(facultyRepository.findByColorIgnoreCase(param));
-        result.addAll(facultyRepository.findByNameIgnoreCase(param));
-        return result;
-    }
-
-    public List<Student> getStudentsByFacultyId(Long id) {
-        return studentService.getByFacultyId(id);
+                .map(Faculty::getName)
+                .max(Comparator.comparing(String::length))
+                .get();
     }
 }
