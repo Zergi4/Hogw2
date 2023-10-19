@@ -37,7 +37,6 @@ public class AvatarService {
 
 
     public void uploadAvatar(Long studentId, MultipartFile avatarFile) throws IOException {
-        logger.info("Was invoked method for upload avatar");
         Student student = studentRepository.getById(studentId);
         Path filePath = Path.of(avatarDir, studentId + "." + getExtensions(avatarFile.getOriginalFilename()));
         Files.createDirectories(filePath.getParent());
@@ -57,7 +56,6 @@ public class AvatarService {
         avatarRepository.save(avatar);
     }
     public Avatar findAvatar(Long studentId) {
-        logger.info("Was invoked method for find avatar");
         return avatarRepository.findByStudentId(studentId).orElse(new Avatar());}
 
     private String getExtensions(String fileName) {
@@ -65,7 +63,6 @@ public class AvatarService {
     }
 
     public Collection<String> getAvatarList(int pageNumber, int pageSize){
-        logger.info("Was invoked method for get avatars list");
         PageRequest pageRequest = PageRequest.of(pageNumber-1,pageSize);
         return avatarRepository.findAll(pageRequest).stream()
                 .map(Avatar ::getFilePath)

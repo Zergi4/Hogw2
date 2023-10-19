@@ -28,7 +28,6 @@ public class StudentController {
     public ResponseEntity<Student> getStudent(@PathVariable Long id) {
         Student student = studentService.findStudent(id);
         if (student == null) {
-            logger.error("There is not student with id = " + id);
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(student);
@@ -38,7 +37,6 @@ public class StudentController {
     public ResponseEntity<Collection<Student>> getStudentByAge(@PathVariable int age) {
         Collection<Student> result = studentService.getStudentsByAge(age);
         if (result.size() == 0) {
-            logger.error("There is not student with age = " + age);
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(result);
@@ -53,7 +51,6 @@ public class StudentController {
     public ResponseEntity<Student> editStudent(@RequestBody Student student) {
         Student foundStudent = studentService.editStudent(student);
         if (foundStudent == null) {
-            logger.error("There is not student with id = " + student.getId());
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(foundStudent);
@@ -69,7 +66,6 @@ public class StudentController {
     public ResponseEntity<Collection<Student>> getStudentByAgeBetween(@RequestParam int min, @RequestParam int max) {
         Collection<Student> result = studentService.getStudentsByAgeBetween(min, max);
         if (result.size() == 0) {
-            logger.error("There is not students with age between {} and {}", min, max);
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(result);

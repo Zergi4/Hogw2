@@ -15,7 +15,6 @@ import java.util.Comparator;
 public class FacultyService {
     private final FacultyRepository facultyRepository;
     private final StudentRepository studentRepository;
-    Logger logger = LoggerFactory.getLogger(FacultyService.class);
 
     public FacultyService(FacultyRepository facultyRepository, StudentRepository studentRepository) {
         this.facultyRepository = facultyRepository;
@@ -23,36 +22,30 @@ public class FacultyService {
     }
 
     public Faculty createFaculty(Faculty faculty) {
-        logger.info("Was invoked method for create faculty");
         return facultyRepository.save(faculty);
     }
 
     public Faculty findFaculty(long id) {
-        logger.info("Was invoked method to find faculty");
         return facultyRepository.findById(id).get();
     }
 
     public Faculty editFaculty(Faculty faculty) {
-        logger.info("Was invoked method for edit faculty");
         return facultyRepository.save(faculty);
     }
 
     public void deleteFaculty(long id) {
-        logger.info("Was invoked method for delete faculty");
         facultyRepository.deleteById(id);
     }
 
     public Collection<Faculty> getFacultiesByColor(String color) {
-        logger.info("Was invoked method to get faculty by color: {}", color);
         return facultyRepository.findByColorIgnoreCase(color);
     }
 
     public Collection<Faculty> getFacultiesByColorOrName(String colorOrName) {
-        logger.info("Was invoked method to get faculty by color or name: {}", colorOrName);
         return facultyRepository.findAllByColorContainingIgnoreCaseOrNameContainingIgnoreCase(colorOrName, colorOrName);
     }
     public Collection<Student> getFacultyStudents(long id){
-        logger.info("Was invoked method to get students by faculty");
+
         return studentRepository.findAllByFaculty_id(id);
     }
 
