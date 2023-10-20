@@ -4,12 +4,10 @@ import org.example.entity.Faculty;
 import org.example.entity.Student;
 import org.example.repository.FacultyRepository;
 import org.example.repository.StudentRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
-import java.util.Comparator;
 
 @Service
 public class FacultyService {
@@ -44,15 +42,9 @@ public class FacultyService {
     public Collection<Faculty> getFacultiesByColorOrName(String colorOrName) {
         return facultyRepository.findAllByColorContainingIgnoreCaseOrNameContainingIgnoreCase(colorOrName, colorOrName);
     }
-    public Collection<Student> getFacultyStudents(long id){
+
+    public Collection<Student> getFacultyStudents(long id) {
 
         return studentRepository.findAllByFaculty_id(id);
-    }
-
-    public String getTheLongestName() {
-        return facultyRepository.findAll().stream()
-                .map(Faculty::getName)
-                .max(Comparator.comparing(String::length))
-                .get();
     }
 }

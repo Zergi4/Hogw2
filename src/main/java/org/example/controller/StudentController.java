@@ -94,29 +94,4 @@ public class StudentController {
     public Collection<Student> getLast5Students() {
         return studentService.getLast5Student();
     }
-
-    @GetMapping("/name-list")
-    Collection<String> getNameList() {
-        return studentService.getNameList();
-    }
-
-    @GetMapping("/avg-age-by-stream")
-    public double getStudentAvgAgeByStream() {
-        return studentService.getStudentAvgAgeByStream();
-    }
-
-    @GetMapping("/get-number")
-    public int getNumber() {
-        return studentService.getNumber();
-    }
-
-    @GetMapping("/thread")
-    public void studentThread() {
-        studentService.studentThread();
-    }
-
-    @GetMapping("/synchronized-thread")
-    public void synchronizedStudentThread() throws InterruptedException {
-        studentService.synchronizedStudentThread();
-    }
 }
