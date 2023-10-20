@@ -1,33 +1,23 @@
 package org.example.entity;
 
 
-import javax.persistence.*;
+import jakarta.persistence.*;
+
 import java.util.Arrays;
 import java.util.Objects;
 
-import static javax.persistence.GenerationType.IDENTITY;
-
-
 @Entity
 public class Avatar {
-
     @Id
-    @GeneratedValue(strategy = IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String filePath;
-
     private long fileSize;
-
     private String mediaType;
-
-    @Lob
     private byte[] data;
     @OneToOne
+    @JoinColumn(name = "student_id")
     private Student student;
-
-    public Avatar() {
-    }
 
     public Long getId() {
         return id;
@@ -79,7 +69,6 @@ public class Avatar {
 
     @Override
     public boolean equals(Object o) {
-
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Avatar avatar = (Avatar) o;
