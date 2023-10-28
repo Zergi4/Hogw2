@@ -1,33 +1,40 @@
 package org.example.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
-import java.util.List;
+
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+
+
+import java.util.Collection;
 import java.util.Objects;
-
-import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
 public class Faculty {
-
     @Id
-    @GeneratedValue(strategy = IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String color;
-
-    @OneToMany
-    private List<Student> studentList;
+    @OneToMany(mappedBy = "faculty")
+    @JsonIgnore
+    private Collection<Student> students;
 
     public Faculty(String name, String color) {
+        this.id = 0L;
+        this.name = name;
+        this.color = color;
+    }
+
+    public Faculty(Long id, String name, String color) {
+        this.id = id;
         this.name = name;
         this.color = color;
     }
 
     public Faculty() {
+
     }
 
     public Long getId() {
@@ -54,25 +61,25 @@ public class Faculty {
         this.color = color;
     }
 
-    public List<Student> getStudentList() {
-        return studentList;
+    public Collection<Student> getStudents() {
+        return students;
     }
 
-    public void setStudentList(List<Student> studentList) {
-        this.studentList = studentList;
+    public void setStudents(Collection<Student> students) {
+        this.students = students;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Faculty)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         Faculty faculty = (Faculty) o;
-        return Objects.equals(getId(), faculty.getId()) && Objects.equals(getName(), faculty.getName()) && Objects.equals(getColor(), faculty.getColor());
+        return Objects.equals(id, faculty.id) && Objects.equals(name, faculty.name) && Objects.equals(color, faculty.color);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getColor());
+        return Objects.hash(id, name, color);
     }
 
     @Override
