@@ -102,5 +102,8 @@ public class StudentController {
     public double getAverageAgeByStream() {
         return studentService.getAverageAge();
     }
-
+@GetMapping("/summary")
+    public int getSummary() {
+    return studentService.getSum();
+    }
 }

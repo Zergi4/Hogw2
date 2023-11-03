@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 
 import java.util.Collection;
-import java.util.OptionalDouble;
+import java.util.stream.Stream;
 
 
 @Service
@@ -87,5 +87,12 @@ public class StudentService {
 
         return studentRepository.findAll().stream().mapToInt(Student::getAge).average().getAsDouble();
     }
+    public int getSum() {
 
+        return Stream.iterate(1, a -> a + 1)
+                .limit(1_000_000)
+                .reduce(0, (a, b) -> a + b);// .parallel() уменьшает скорость обработки
+
+
+    }
 }
