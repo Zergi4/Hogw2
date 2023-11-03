@@ -75,6 +75,9 @@ public class StudentService {
         logger.info("A method getLast5Student was used");
         return studentRepository.getLast5Students();
     }
-
+public Collection<Student> findByNameIsStartingWithA() {
+    logger.info("A method getStudentListByLetterA was used");
+    return studentRepository.findByNameIsStartingWith("A");
+}
 
 }
