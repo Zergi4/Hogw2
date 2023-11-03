@@ -76,8 +76,10 @@ public class StudentService {
         return studentRepository.getLast5Students();
     }
 public Collection<Student> findByNameIsStartingWithA() {
-    logger.info("A method getStudentListByLetterA was used");
-    return studentRepository.findByNameIsStartingWith("A");
+    return  studentRepository.findAll().stream()
+            .filter(student -> student.getName()
+                    .startsWith("A"))
+            .toList();
 }
 
 }

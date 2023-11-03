@@ -25,5 +25,4 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
 
     @Query(value = "select * from student order by id desc limit 5",nativeQuery = true)
     Collection<Student> getLast5Students();
-    Collection<Student> findByNameIsStartingWith(String letter);
 }
