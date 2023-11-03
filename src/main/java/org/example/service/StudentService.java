@@ -75,14 +75,17 @@ public class StudentService {
         logger.info("A method getLast5Student was used");
         return studentRepository.getLast5Students();
     }
-public Collection<Student> findByNameIsStartingWithA() {
-    return  studentRepository.findAll().stream()
-            .filter(student -> student.getName()
-                    .startsWith("A"))
-            .toList();
-}
-public double getAverageAge() {
 
-    return studentRepository.findAll().stream().mapToInt(Student::getAge).average().getAsDouble();
-}
+    public Collection<Student> findByNameIsStartingWithA() {
+        return studentRepository.findAll().stream()
+                .filter(student -> student.getName()
+                        .startsWith("A"))
+                .toList();
+    }
+
+    public double getAverageAge() {
+
+        return studentRepository.findAll().stream().mapToInt(Student::getAge).average().getAsDouble();
+    }
+
 }
