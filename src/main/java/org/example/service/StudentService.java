@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 
 import java.util.Collection;
-
+import java.util.OptionalDouble;
 
 
 @Service
@@ -81,5 +81,8 @@ public Collection<Student> findByNameIsStartingWithA() {
                     .startsWith("A"))
             .toList();
 }
+public double getAverageAge() {
 
+    return studentRepository.findAll().stream().mapToInt(Student::getAge).average().getAsDouble();
+}
 }
