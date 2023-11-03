@@ -1,32 +1,38 @@
 package org.example.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 
 import java.util.Objects;
 
-import static javax.persistence.GenerationType.IDENTITY;
-
 @Entity
 public class Student {
-
     @Id
-    @GeneratedValue(strategy = IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private int age;
-
     @ManyToOne
+    @JoinColumn(name = "faculty_id")
+    @JsonIgnore
+
     private Faculty faculty;
 
     public Student(String name, int age) {
+        this.id = 0L;
+        this.name = name;
+        this.age = age;
+    }
+
+    public Student(Long id, String name, int age) {
+        this.id = id;
         this.name = name;
         this.age = age;
     }
 
     public Student() {
+
     }
 
     public Long getId() {
@@ -64,14 +70,14 @@ public class Student {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Student)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         Student student = (Student) o;
-        return getAge() == student.getAge() && Objects.equals(getId(), student.getId()) && Objects.equals(getName(), student.getName());
+        return age == student.age && Objects.equals(id, student.id) && Objects.equals(name, student.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getAge());
+        return Objects.hash(id, name, age);
     }
 
     @Override
