@@ -83,6 +83,7 @@ public class StudentService {
                 .toList();
     }
 
+
     public double getAverageAge() {
 
         return studentRepository.findAll().stream().mapToInt(Student::getAge).average().getAsDouble();
