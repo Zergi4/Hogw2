@@ -1,8 +1,6 @@
 package org.example.controller;
 
 
-
-
 import org.example.entity.Faculty;
 import org.example.entity.Student;
 import org.example.service.StudentService;
@@ -94,16 +92,27 @@ public class StudentController {
     public Collection<Student> getLast5Students() {
         return studentService.getLast5Student();
     }
+
     @GetMapping("/list/letter/a")
     public Collection<Student> findByNameIsStartingWithA() {
         return studentService.findByNameIsStartingWithA();
     }
+
     @GetMapping("/average-age")
     public double getAverageAgeByStream() {
         return studentService.getAverageAge();
     }
-@GetMapping("/summary")
+
+    @GetMapping("/summary")
     public int getSummary() {
-    return studentService.getSum();
+        return studentService.getSum();
+    }
+    @GetMapping("/print-in-threads")
+    public void printInThreads() {
+        studentService.printAll();
+    }
+    @GetMapping("/print-in-threads-sync")
+    public void PrintInThreadsSync() {
+        studentService.printAllSynchronized();
     }
 }
