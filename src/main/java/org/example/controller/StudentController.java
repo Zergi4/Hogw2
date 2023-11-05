@@ -115,4 +115,5 @@ public class StudentController {
     public void PrintInThreadsSync() {
         studentService.printAllSynchronized();
     }
+
 }
